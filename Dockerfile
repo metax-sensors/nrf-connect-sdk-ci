@@ -1,7 +1,7 @@
 FROM debian:stable-slim
 
 #ARG ARCH=amd64
-ARG NRF_CONNECT_TAG=v3.4.0
+ARG NRF_CONNECT_TAG=v3.4.1
 # Should be for selected NRF_CONNECT_TAG
 ARG ZEPHYR_NEEDED_TAG=1.0.1
 # For new versions - xz

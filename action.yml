@@ -25,7 +25,7 @@ inputs:
     default: 'release'
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/metax-sensors/nrf-connect-sdk-ci:v3.4.0'
+  image: 'docker://ghcr.io/metax-sensors/nrf-connect-sdk-ci:v3.4.1'
   args:
     # build.sh takes 6 positional arguments, in this exact order:
     #   PROJECT_PATH BOARD BUILD_DIR FILE_SUFFIX WORKSPACE_DIR NCS_PATH
