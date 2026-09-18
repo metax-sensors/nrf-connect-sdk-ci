@@ -9,26 +9,31 @@ inputs:
     required: true
   build_dir:
     description: 'Building directory'
-    required: true
+    required: false
     default: 'build'
-  mcuboot_conf_file:
-    description: 'MCUboot configuration file'
-    required: true
-  conf_file:
-    description: 'Configuration file'
-    required: true
+  workspace_dir:
+    description: 'Name of the workspace directory where the project-builds will be placed'
+    required: false
+    default: 'workspace'
+  project_root:
+    description: 'Root Directory where the project files are located'
+    required: false
+    default: '/github/workspace'
+  file_suffix:
+    description: 'Configuration file suffix'
+    required: false
+    default: 'release'
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/bestsens/nrf-connect-sdk-ci:v2.7.0'
+  image: 'docker://ghcr.io/metax-sensors/nrf-connect-sdk-ci:v3.4.1'
   args:
-    - west 
-    - build
-    - --build-dir 
-    - ${{ inputs.build_dir }}
-    - .
-    - --pristine
-    - --no-sysbuild
-    - --board 
+    # build.sh takes 6 positional arguments, in this exact order:
+    #   PROJECT_PATH BOARD BUILD_DIR FILE_SUFFIX WORKSPACE_DIR NCS_PATH
+    - sh
+    - ./build.sh
+    - ${{ inputs.project_root }}
     - ${{ inputs.board }}
-    - -Dmcuboot_CONF_FILE=${{ inputs.mcuboot_conf_file }}
-    - -DCONF_FILE=${{ inputs.conf_file }}
+    - ${{ inputs.build_dir }}
+    - ${{ inputs.file_suffix }}
+    - ${{ inputs.workspace_dir }}
+    - /workdir/ncs
